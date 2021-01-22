@@ -2,6 +2,7 @@
 #define LISTS_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/types.h>
 
 /**
@@ -23,5 +24,7 @@ listint_t *add_nodeint_end(listint_t **head, const int n);
 void free_listint(listint_t *head);
 
 int is_palindrome(listint_t **head);
+void reverse(listint_t **head);
+int compare(listint_t *head1, listint_t *head2);
 
 #endif /* LISTS_H */

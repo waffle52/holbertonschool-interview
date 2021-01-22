@@ -7,31 +7,82 @@
  */
 int is_palindrome(listint_t **head)
 {
-	int list[1000];
-	int i = 0;
-	int num = 0;
-	listint_t *node;
+	listint_t *slow = *head, *fast = *head, *prev = *head;
+	listint_t *second, *mid = NULL;
+	int num = 1;
 
-	if (head == NULL)
-		return (0);
-	if (*head == NULL)
-		return (1);
-	if ((*head)->next == NULL)
-		return (1);
-
-	node = *head;
-	while (node != NULL)
+	if (fast && fast->next)
 	{
-		list[num] = node->n;
-		node = node->next;
-		num++;
+		while (fast && fast->next)
+		{
+			fast = fast->next->next;
+			prev = slow;
+			slow = slow->next;
+		}
+
+		if (fast)
+		{
+			mid = slow;
+			slow = slow->next;
+		}
+
+		second = slow;
+		prev->next = NULL;
+		reverse(&second);
+		num = compare(*head, second);
+		reverse(&second);
+
+		if (mid)
+		{
+			prev->next = mid;
+			mid->next = second;
+		}
+		else
+			prev->next = second;
 	}
 
-	for (i = 0; i < (num / 2); i++)
+	return (num);
+}
+
+/**
+ * reverse - reverse a listint_t list
+ * @head: pointer to pointer of first node of listint_t list
+ */
+void reverse(listint_t **head)
+{
+	listint_t *prev = NULL;
+	listint_t *current = *head, *next;
+
+	while (current)
 	{
-		if (list[i] != list[num - i - 1])
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*head = prev;
+}
+
+/**
+ * compare - check if 2 lists are the same
+ * @head1: pointer to first list
+ * @head2: pointer to second list
+ * Return: (1) if they're the same (0) false
+ */
+int compare(listint_t *head1, listint_t *head2)
+{
+	listint_t *first = head1;
+	listint_t *second = head2;
+
+	while (first && second)
+	{
+		if (first->n != second->n)
 			return (0);
+		first = first->next;
+		second = second->next;
 	}
 
-	return (1);
+	if (!first && !second)
+		return (1);
+	return (0);
 }
