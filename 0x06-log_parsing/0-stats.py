@@ -9,7 +9,7 @@ info = {"200": 0, "301": 0, "400": 0, "401": 0,
 
 
 def print_info():
-    print("File Size: {}".format(sum))
+    print("File size: {}".format(sum))
     sc = sorted(info.keys())
     for n in sc:
         if info[n] > 0:
