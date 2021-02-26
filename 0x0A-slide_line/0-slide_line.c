@@ -75,7 +75,7 @@ int right(int *line, size_t size)
 	int num = 0;
 	int num1 = 0;
 	size_t count = size - 1;
-	size_t i = 0;
+	size_t i;
 
 	for (i = size - 1; i < size; i--)
 	{
@@ -103,7 +103,7 @@ int right(int *line, size_t size)
 		else if (num != num1 && i == 0)
 			line[count--] = num;
 	}
-	for (i = 0; i < count; i++)
+	for (i = 0; i < count + 1; i++)
 	{
 		line[i] = 0;
 	}
